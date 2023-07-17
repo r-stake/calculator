@@ -82,11 +82,11 @@ body {
 
 .ui button.digit,
 .ui button.comma {
-    background-color: #495662;
+    background-color: #343434;
     color: #c8cacd;
 }
 
 .ui button.digit:hover,
 .ui button.comma:hover {
-    background-color: #414D58;
+    background-color: #292929;
 }
