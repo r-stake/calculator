@@ -51,6 +51,7 @@ body {
     justify-content: center;
     align-items: center;
     border: none;
+    cursor: pointer;
 }
 
 .ui button:first-child {
@@ -63,15 +64,31 @@ body {
 
 .ui button.clear,
 .ui button.percentage {
-    background-color: #c8cacd;
+    background-color: #9514E6;
 }
+
+.ui button.clear:hover,
+.ui button.percentage:hover {
+    background-color: #8612CF;
+} 
 
 .ui button.operator,
 .ui button.equals {
-    background-color: #e69514;
+    background-color: #e69614;
+}
+
+.ui button.operator:hover,
+.ui button.equals:hover {
+    background-color: #B87710;
 }
 
 .ui button.digit,
 .ui button.comma {
     background-color: #495662;
+    color: #c8cacd;
+}
+
+.ui button.digit:hover,
+.ui button.comma:hover {
+    background-color: #414D58;
 }
