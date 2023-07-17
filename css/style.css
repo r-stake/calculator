@@ -6,4 +6,59 @@
 
 body {
     margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: centerg;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.container.flex-container {
+    width: 500px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator {
+    background-color: black;
+    padding: 50px;
+    border-radius: 50px;
+}
+
+.display {
+    background-color: lightgrey;
+    padding-top: calc(15%);
+    font-size: 3.5rem;
+    text-align: right;
+}
+
+.ui.flex-container {
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.ui button {
+    width: calc(25% - 10px);
+    border-radius: 50px;
+    font-size: 3.5rem;
+    padding-top: calc(3.125%);
+    padding-bottom: calc(3.125%);
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.ui button:first-child {
+    width: calc(50% - 10px);
+}
+
+.ui button:last-child {
+    width: calc(50% - 3px);
 }
