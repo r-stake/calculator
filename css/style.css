@@ -48,8 +48,6 @@ body {
     font-size: 3.5rem;
     padding-top: calc(3.125%);
     padding-bottom: calc(3.125%);
-    position: relative;
-    overflow: hidden;
     justify-content: center;
     align-items: center;
     border: none;
@@ -61,4 +59,19 @@ body {
 
 .ui button:last-child {
     width: calc(50% - 3px);
+}
+
+.ui button.clear,
+.ui button.percentage {
+    background-color: #c8cacd;
+}
+
+.ui button.operator,
+.ui button.equals {
+    background-color: #e69514;
+}
+
+.ui button.digit,
+.ui button.comma {
+    background-color: #495662;
 }
