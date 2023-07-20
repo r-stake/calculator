@@ -1,12 +1,12 @@
-let num1 = 0;
-let num2 = 0;
-let selectedOperator = "";
-let displayString = 0;
+let num1 = null;
+let num2 = null;
+let selectedOperator = null;
+let currentNumber = 0;
 let result = 0;
 
-const displayCurrentScreen = document.querySelector(".current");
-const displayPreviousScreen = document.querySelector(".previous");
-const displayScreenOperator = document.querySelector(".display-operator");
+const displayMain = document.querySelector(".current");
+const displayAlt = document.querySelector(".previous");
+const displayOp = document.querySelector(".display-operator");
 const btnDigits = document.querySelectorAll(".digit");
 const btnClear = document.querySelector(".clear");
 const btnOperators = document.querySelectorAll(".operator");
@@ -25,14 +25,13 @@ function operate(operator, num1, num2) {
 }
 
 function displayDigits(input) {
-    if (displayCurrentScreen.textContent === "0") {
-        displayString = input;
-        displayCurrentScreen.textContent = displayString;
+    if (displayMain.textContent === "0") {
+        currentNumber = input;
+        displayMain.textContent = currentNumber;
     } else {
-        displayString += input;
-        displayCurrentScreen.textContent += input;
+        currentNumber += input;
+        displayMain.textContent = currentNumber;
     }
-    console.log(displayString);
 }
 
 btnDigits.forEach(digit => {
@@ -42,27 +41,41 @@ btnDigits.forEach(digit => {
 });
 
 btnClear.addEventListener("click", () => {
-    displayCurrentScreen.textContent = "0"
-    displayPreviousScreen.textContent = ""
+    displayMain.textContent = "0"
+    displayAlt.textContent = ""
+    num1 = null;
+    num2 = null;
+    currentNumber = 0;
+    selectedOperator = "";
+    result = 0;
 });
 
 btnOperators.forEach(operator => {
     operator.addEventListener("click", function() {
-        selectedOperator = this.textContent;
-        num1 = +displayString;
-        displayPreviousScreen.textContent = displayString;
-        displayString = "0";
-        displayCurrentScreen.textContent = "0";
-        displayScreenOperator.textContent = this.textContent;
-        displayPreviousScreen.appendChild(displayScreenOperator);
-        console.log(selectedOperator);
+        if (selectedOperator) {
+            result = operate(selectedOperator, num1, +currentNumber);
+            num1 = result;
+            selectedOperator = this.textContent;
+            displayAlt.textContent = result;
+            currentNumber = "0";
+            displayMain.textContent = "0";
+        } else {
+            selectedOperator = this.textContent;
+            num1 = +currentNumber;
+            displayAlt.textContent = currentNumber;
+            currentNumber = "0";
+            displayMain.textContent = "0";
+            displayOp.textContent = this.textContent;
+            displayAlt.appendChild(displayOp);
+        }  
     });
 });
 
 btnEquals.addEventListener("click", function() {
-    num2 = +displayString;
-    displayPreviousScreen.textContent = "";
+    num2 = +currentNumber;
+    displayAlt.textContent = "";
     result = operate(selectedOperator, num1, num2);
-    displayString = result;
-    displayCurrentScreen.textContent = result;
+    currentNumber = result;
+    displayMain.textContent = result;
+    // displayMain.classList.add("result");
 });

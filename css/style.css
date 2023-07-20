@@ -110,3 +110,7 @@ body {
 .ui button.comma:hover {
     background-color: #292929;
 }
+
+.result {
+    color: green;
+}
