@@ -1,7 +1,6 @@
 let num1 = null;
 let num2 = null;
-let selectedOperator = null;
-let currentNumber = 0;
+let selectedOperator = "";
 let result = 0;
 
 const displayMain = document.querySelector(".current");
@@ -26,11 +25,9 @@ function operate(operator, num1, num2) {
 
 function displayDigits(input) {
     if (displayMain.textContent === "0") {
-        currentNumber = input;
-        displayMain.textContent = currentNumber;
+        displayMain.textContent = input;
     } else {
-        currentNumber += input;
-        displayMain.textContent = currentNumber;
+        displayMain.textContent += input;
     }
 }
 
@@ -38,7 +35,6 @@ function reset() {
     num1 = null;
     num2 = null;
     selectedOperator = "";
-    currentNumber = 0;
     displayMain.textContent = "0"
     if (result) {
         displayMain.textContent = result;
@@ -60,33 +56,32 @@ btnClear.addEventListener("click", () => {
 
 btnOperators.forEach(operator => {
     operator.addEventListener("click", function() {
-        if (selectedOperator) {
-            result = operate(selectedOperator, num1, +currentNumber);
-            num1 = result;
-            selectedOperator = this.textContent;
-            displayAlt.textContent = result;
-            currentNumber = "0";
-            displayMain.textContent = "0";
-        } else {
-            selectedOperator = this.textContent;
-            if (displayMain.textContent) {
-                currentNumber = displayMain.textContent;
+        if (displayMain.textContent === "0") {
+            if (selectedOperator === "") {
+                return;
             }
-            num1 = +currentNumber;
-            displayAlt.textContent = currentNumber;
-            currentNumber = "0";
-            displayMain.textContent = "0";
+            selectedOperator = this.textContent;
             displayOp.textContent = this.textContent;
-            displayAlt.appendChild(displayOp);
-        }  
+            return;
+        }
+        if (selectedOperator) {
+            num1 = operate(selectedOperator, num1, +displayMain.textContent);
+        } 
+        if (!selectedOperator) {
+            num1 = +displayMain.textContent;
+        }
+        selectedOperator = this.textContent;
+        displayAlt.textContent = num1;
+        displayMain.textContent = "0";
+        displayOp.textContent = this.textContent;
+        displayAlt.appendChild(displayOp);
     });
 });
 
 btnEquals.addEventListener("click", function() {
-    num2 = +currentNumber;
+    num2 = +displayMain.textContent;
     displayAlt.textContent = "";
     result = operate(selectedOperator, num1, num2);
-    currentNumber = result;
     displayMain.textContent = result;
     reset();
 });
