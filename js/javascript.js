@@ -34,6 +34,20 @@ function displayDigits(input) {
     }
 }
 
+function reset() {
+    num1 = null;
+    num2 = null;
+    selectedOperator = "";
+    currentNumber = 0;
+    displayMain.textContent = "0"
+    if (result) {
+        displayMain.textContent = result;
+    }
+    displayAlt.textContent = ""
+    result = 0;
+    
+}
+
 btnDigits.forEach(digit => {
     digit.addEventListener("click", function() {
         displayDigits(this.textContent);
@@ -41,13 +55,7 @@ btnDigits.forEach(digit => {
 });
 
 btnClear.addEventListener("click", () => {
-    displayMain.textContent = "0"
-    displayAlt.textContent = ""
-    num1 = null;
-    num2 = null;
-    currentNumber = 0;
-    selectedOperator = "";
-    result = 0;
+    reset();
 });
 
 btnOperators.forEach(operator => {
@@ -61,6 +69,9 @@ btnOperators.forEach(operator => {
             displayMain.textContent = "0";
         } else {
             selectedOperator = this.textContent;
+            if (displayMain.textContent) {
+                currentNumber = displayMain.textContent;
+            }
             num1 = +currentNumber;
             displayAlt.textContent = currentNumber;
             currentNumber = "0";
@@ -77,5 +88,5 @@ btnEquals.addEventListener("click", function() {
     result = operate(selectedOperator, num1, num2);
     currentNumber = result;
     displayMain.textContent = result;
-    // displayMain.classList.add("result");
+    reset();
 });
