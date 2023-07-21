@@ -101,13 +101,13 @@ body {
 }
 
 .ui button.digit,
-.ui button.comma {
+.ui button.decimal {
     background-color: #343434;
     color: #c8cacd;
 }
 
 .ui button.digit:hover,
-.ui button.comma:hover {
+.ui button.decimal:hover {
     background-color: #292929;
 }
 

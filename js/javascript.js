@@ -10,6 +10,7 @@ const btnDigits = document.querySelectorAll(".digit");
 const btnClear = document.querySelector(".clear");
 const btnOperators = document.querySelectorAll(".operator");
 const btnEquals = document.querySelector(".equals");
+const btnDecimal = document.querySelector(".decimal");
 
 const operations = [
     { name: "+", operation: (num1, num2) => {return num1 + num2} },
@@ -84,4 +85,10 @@ btnEquals.addEventListener("click", function() {
     result = operate(selectedOperator, num1, num2);
     displayMain.textContent = result;
     reset();
+});
+
+btnDecimal.addEventListener("click", () => {
+    if (!displayMain.textContent.includes(".")) {
+        displayMain.textContent += "."
+    };
 });
