@@ -1,5 +1,5 @@
-let num1 = null;
-let num2 = null;
+let num1 = 0;
+let num2 = 0;
 let selectedOperator = "";
 let result = 0;
 
@@ -39,12 +39,16 @@ function displayDigits(input) {
 }
 
 function reset() {
-    num1 = null;
-    num2 = null;
+    num1 = 0;
+    num2 = 0;
     selectedOperator = "";
     displayMain.textContent = "0"
     if (result) {
-        displayMain.textContent = result;
+        if (result.toString() > 15) {
+            displayMain.textContent = parseFloat(result.toExponential(6));
+        } else {
+            displayMain.textContent = result;
+        }
     }
     displayAlt.textContent = ""
     result = 0;
@@ -63,6 +67,7 @@ btnClear.addEventListener("click", () => {
 
 btnOperators.forEach(operator => {
     operator.addEventListener("click", function() {
+        // Allow to change the operator when no value is set
         if (displayMain.textContent === "0") {
             if (selectedOperator === "") {
                 return;
@@ -71,9 +76,10 @@ btnOperators.forEach(operator => {
             displayOp.textContent = this.textContent;
             return;
         }
+        // Chain operations together
         if (selectedOperator) {
             num1 = operate(selectedOperator, num1, +displayMain.textContent);
-        } 
+        }
         if (!selectedOperator) {
             num1 = +displayMain.textContent;
         }
@@ -89,7 +95,11 @@ btnEquals.addEventListener("click", function() {
     num2 = +displayMain.textContent;
     displayAlt.textContent = "";
     result = operate(selectedOperator, num1, num2);
-    displayMain.textContent = result;
+    if (result.toString().length > 15 ) {
+        displayMain.textContent = parseFloat(result.toExponential(6));
+    } else {
+        displayMain.textContent = result;
+    }
     reset();
 });
 
