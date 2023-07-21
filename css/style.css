@@ -80,13 +80,17 @@ body {
     width: calc(50% - 3px);
 }
 
+.ui button.backspace {
+    font-size: 2.5rem;
+}
+
 .ui button.clear,
-.ui button.percentage {
+.ui button.backspace {
     background-color: #9514E6;
 }
 
 .ui button.clear:hover,
-.ui button.percentage:hover {
+.ui button.backspace:hover {
     background-color: #8612CF;
 } 
 

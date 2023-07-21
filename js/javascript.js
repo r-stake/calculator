@@ -11,12 +11,18 @@ const btnClear = document.querySelector(".clear");
 const btnOperators = document.querySelectorAll(".operator");
 const btnEquals = document.querySelector(".equals");
 const btnDecimal = document.querySelector(".decimal");
+const btnBackspace = document.querySelector(".backspace");
 
 const operations = [
     { name: "+", operation: (num1, num2) => {return num1 + num2} },
     { name: "-", operation: (num1, num2) => {return num1 - num2} },
     { name: "x", operation: (num1, num2) => {return num1 * num2} },
-    { name: "÷", operation: (num1, num2) => {return num1 / num2} }
+    { name: "÷", operation: (num1, num2) => {
+        if (num2 === 0) {
+            return "Did you just try to divide by zero?!"
+        }
+        return num1 / num2} 
+    }
 ]
 
 function operate(operator, num1, num2) {
@@ -91,4 +97,9 @@ btnDecimal.addEventListener("click", () => {
     if (!displayMain.textContent.includes(".")) {
         displayMain.textContent += "."
     };
+});
+
+
+btnBackspace.addEventListener("click", () => {
+    displayMain.textContent = displayMain.textContent.slice(0, -1);
 });
