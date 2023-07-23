@@ -6,6 +6,7 @@ let result = 0;
 const displayMain = document.querySelector(".current");
 const displayAlt = document.querySelector(".previous");
 const displayOp = document.querySelector(".display-operator");
+const displayError = document.querySelector(".display-error")
 const btnDigits = document.querySelectorAll(".digit");
 const btnClear = document.querySelector(".clear");
 const btnOperators = document.querySelectorAll(".operator");
@@ -34,7 +35,13 @@ function displayDigits(input) {
     if (displayMain.textContent === "0") {
         displayMain.textContent = input;
     } else {
+        if (displayMain.textContent.length >= 13) {
+            displayError.textContent = "Too many numbers"
+            displayAlt.parentNode.insertBefore(displayError, displayAlt);
+            return;
+        }
         displayMain.textContent += input;
+        console.log(displayMain.textContent.length);
     }
 }
 
@@ -42,17 +49,22 @@ function reset() {
     num1 = 0;
     num2 = 0;
     selectedOperator = "";
-    displayMain.textContent = "0"
+    displayMain.textContent = "0";
     if (result) {
-        if (result.toString() > 15) {
-            displayMain.textContent = parseFloat(result.toExponential(6));
-        } else {
-            displayMain.textContent = result;
-        }
+        displayMain.textContent = formatNumber(result);
     }
-    displayAlt.textContent = ""
+    displayError.textContent = ""
+    displayAlt.textContent = "";
     result = 0;
-    
+}
+
+function formatNumber(num) {
+    const absoluteNum = Math.abs(num);
+    if (absoluteNum >= 1e+12 || (absoluteNum > 0 && absoluteNum < 1e-11)) {
+        return num.toExponential(5);
+    } else {
+        return num.toString();
+    }
 }
 
 btnDigits.forEach(digit => {
@@ -84,8 +96,9 @@ btnOperators.forEach(operator => {
             num1 = +displayMain.textContent;
         }
         selectedOperator = this.textContent;
-        displayAlt.textContent = num1;
+        displayAlt.textContent = formatNumber(num1);
         displayMain.textContent = "0";
+        displayError.textContent = ""
         displayOp.textContent = this.textContent;
         displayAlt.appendChild(displayOp);
     });
@@ -95,11 +108,7 @@ btnEquals.addEventListener("click", function() {
     num2 = +displayMain.textContent;
     displayAlt.textContent = "";
     result = operate(selectedOperator, num1, num2);
-    if (result.toString().length > 15 ) {
-        displayMain.textContent = parseFloat(result.toExponential(6));
-    } else {
-        displayMain.textContent = result;
-    }
+    displayMain.textContent = formatNumber(result);
     reset();
 });
 
@@ -111,5 +120,8 @@ btnDecimal.addEventListener("click", () => {
 
 
 btnBackspace.addEventListener("click", () => {
+    if (displayMain.textContent === "0") {
+        return;
+    }
     displayMain.textContent = displayMain.textContent.slice(0, -1);
 });

@@ -8,7 +8,6 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
-    margin-top: 100px;
     font-family: 'Noto Sans Math', sans-serif;
 }
 
@@ -20,12 +19,14 @@ body {
     width: 500px;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
 .calculator {
     background-color: black;
     padding: 50px;
     border-radius: 50px;
+    scale: 0.7;
 }
 
 .display {
@@ -34,6 +35,11 @@ body {
     text-align: right;
     height: 124px;
     padding: 0;
+}
+
+.display .alternative.flex-container {
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 .display .previous {
@@ -45,13 +51,20 @@ body {
 
 .display .current {
     margin: 0;
-    font-size: 3.5rem;
+    font-size: 3.25rem;
+    line-height: 64px;
+    height: 64px;
 }
 
 .display .previous .display-operator {
     font-size: 2rem;
     margin-left: 10px;
     margin-right: 5px;
+}
+
+.display-error {
+    font-size: 1.5rem;
+    color: red;
 }
 
 .ui.flex-container {
