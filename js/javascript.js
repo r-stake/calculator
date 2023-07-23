@@ -2,6 +2,7 @@ let num1 = 0;
 let num2 = 0;
 let selectedOperator = "";
 let result = 0;
+let isFatalError = false;
 
 const displayMain = document.querySelector(".current");
 const displayAlt = document.querySelector(".previous");
@@ -20,7 +21,9 @@ const operations = [
     { name: "x", operation: (num1, num2) => {return num1 * num2} },
     { name: "÷", operation: (num1, num2) => {
         if (num2 === 0) {
-            return "Did you just try to divide by zero?!"
+            displayError.textContent = "Did you just try to divide by zero?!";
+            isFatalError = true;
+            return;
         }
         return num1 / num2} 
     }
@@ -41,7 +44,6 @@ function displayDigits(input) {
             return;
         }
         displayMain.textContent += input;
-        console.log(displayMain.textContent.length);
     }
 }
 
@@ -69,6 +71,10 @@ function formatNumber(num) {
 
 btnDigits.forEach(digit => {
     digit.addEventListener("click", function() {
+        if (isFatalError) {
+            reset();
+            isFatalError = false;
+        }
         displayDigits(this.textContent);
     });
 });
