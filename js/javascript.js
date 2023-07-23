@@ -111,6 +111,10 @@ btnOperators.forEach(operator => {
 });
 
 btnEquals.addEventListener("click", function() {
+    if (!selectedOperator) {
+        displayError.textContent = "Select an operator first";
+        return;
+    }
     num2 = +displayMain.textContent;
     displayAlt.textContent = "";
     result = operate(selectedOperator, num1, num2);
